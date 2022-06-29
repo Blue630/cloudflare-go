@@ -3,7 +3,7 @@ package cloudflare
 import (
 	"bytes"
 	"context"
-	rand "crypto/rand"
+	"crypto/rand"
 	"encoding/hex"
 	"encoding/json"
 	"fmt"
@@ -950,7 +950,7 @@ func (api *API) ListWorkerTraces(ctx context.Context) (WorkerTraceListResponse, 
 	var r WorkerTraceListResponse
 	err = json.Unmarshal(res, &r)
 	if err != nil {
-		return WorkerTraceListResponse{}, errors.Wrap(err, errUnmarshalError)
+		return WorkerTraceListResponse{}, fmt.Errorf("%s: %w", errUnmarshalError, err)
 	}
 	return r, nil
 }
@@ -967,7 +967,7 @@ func (api *API) CreateWorkerTrace(ctx context.Context, req WorkerTraceParams) (W
 	var r WorkerTraceResponse
 	err = json.Unmarshal(res, &r)
 	if err != nil {
-		return WorkerTraceResponse{}, errors.Wrap(err, errUnmarshalError)
+		return WorkerTraceResponse{}, fmt.Errorf("%s: %w", errUnmarshalError, err)
 	}
 	return r, nil
 }
@@ -984,7 +984,7 @@ func (api *API) DeleteWorkerTrace(ctx context.Context, TAG string) (Response, er
 	var r Response
 	err = json.Unmarshal(res, &r)
 	if err != nil {
-		return Response{}, errors.Wrap(err, errUnmarshalError)
+		return Response{}, fmt.Errorf("%s: %w", errUnmarshalError, err)
 	}
 	return r, nil
 }
